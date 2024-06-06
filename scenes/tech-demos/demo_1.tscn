@@ -1,0 +1,135 @@
+[gd_scene load_steps=9 format=3 uid="uid://bkgm041ygi8bb"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_s2ai3"]
+[ext_resource type="PackedScene" uid="uid://dmf0fx3mo63or" path="res://scenes/player.tscn" id="2_rsjlr"]
+[ext_resource type="PackedScene" uid="uid://bwktjkb285pt1" path="res://fuzzy_graphics/graphic_dist.tscn" id="3_vfjmx"]
+[ext_resource type="PackedScene" uid="uid://chaf7rmpe7b7d" path="res://scenes/enemy.tscn" id="4_7a1qa"]
+[ext_resource type="PackedScene" uid="uid://cde7yun5b8dui" path="res://scenes/gameOver.tscn" id="5_i7mdm"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_f2j2d"]
+vertices = PackedVector3Array(9.2255, 0.51771, -0.1517, 9.2255, 0.51771, -8.4017, -0.0244999, 0.51771, -8.4017, -9.2745, 0.51771, -0.1517, -9.2745, 0.51771, 8.3483, -0.0244999, 0.51771, 8.3483, -0.0244999, 0.51771, -8.4017, -9.2745, 0.51771, -8.4017, -9.2745, 0.51771, -0.1517, -0.0244999, 0.51771, 8.3483, 9.2255, 0.51771, 8.3483, 9.2255, 0.51771, -0.1517)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 5), PackedInt32Array(2, 5, 3), PackedInt32Array(3, 5, 4), PackedInt32Array(8, 7, 6), PackedInt32Array(11, 10, 9)]
+cell_height = 0.01
+
+[sub_resource type="BoxMesh" id="BoxMesh_jwh58"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fkrha"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_s2ai3")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10.0672, 0)
+
+[node name="player" parent="." node_paths=PackedStringArray("lbl") instance=ExtResource("2_rsjlr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.72985)
+lbl = NodePath("../UI/PlayerInfo")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.95412, 0.299424, 0, -0.299424, 0.95412, 0, 1.9374, 3.03532)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PlayerInfo" type="Label" parent="UI"]
+offset_left = 17.0
+offset_top = 14.0
+offset_right = 347.0
+offset_bottom = 123.0
+theme_override_font_sizes/font_size = 20
+text = "Player Status: 
+Player Noise:"
+
+[node name="enemyInfo" type="Label" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -157.0
+offset_top = 84.0
+offset_right = -9.0
+offset_bottom = 115.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
+text = "Status do Inimigo: "
+horizontal_alignment = 2
+
+[node name="enemyOpt" type="OptionButton" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -177.0
+offset_top = 38.0
+offset_right = -10.0
+offset_bottom = 69.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
+
+[node name="Label" type="Label" parent="UI/enemyOpt"]
+layout_mode = 0
+offset_top = -32.0
+offset_right = 105.0
+offset_bottom = -1.0
+theme_override_font_sizes/font_size = 20
+text = "Inimigo:"
+
+[node name="graphic_dist" parent="UI" instance=ExtResource("3_vfjmx")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 25.0
+offset_top = -184.0
+offset_right = 444.0
+offset_bottom = -18.0
+grow_horizontal = 1
+grow_vertical = 0
+
+[node name="graphic_res" parent="UI" instance=ExtResource("3_vfjmx")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+offset_left = -444.0
+offset_top = -184.0
+offset_right = -25.0
+offset_bottom = -18.0
+grow_horizontal = 0
+grow_vertical = 0
+graph_value = "Result"
+
+[node name="graphic_noise" parent="UI" instance=ExtResource("3_vfjmx")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 25.0
+offset_top = -409.0
+offset_right = 444.0
+offset_bottom = -243.0
+grow_horizontal = 1
+grow_vertical = 0
+graph_value = "Noise"
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_f2j2d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D"]
+transform = Transform3D(19.549, 0, 0, 0, 1.00458, 0, 0, 0, 17.8034, 0, 0, 0)
+mesh = SubResource("BoxMesh_jwh58")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_fkrha")
+
+[node name="enemyGrp" type="Node3D" parent="."]
+
+[node name="enemy" parent="enemyGrp" node_paths=PackedStringArray("cameraRef", "player") instance=ExtResource("4_7a1qa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.178723, 0.737638, -1.58522)
+cameraRef = NodePath("../../Camera3D")
+minDistance = 5.0
+player = NodePath("../../player")
+
+[node name="gameOverScreen" type="CanvasLayer" parent="."]
+
+[node name="gameOver" parent="gameOverScreen" instance=ExtResource("5_i7mdm")]
+visible = false
+
+[connection signal="item_selected" from="UI/enemyOpt" to="." method="_on_enemy_opt_item_selected"]

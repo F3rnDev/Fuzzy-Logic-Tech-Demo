@@ -1,0 +1,149 @@
+[gd_scene load_steps=9 format=3 uid="uid://bi4ary72458x"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_0q33v"]
+[ext_resource type="PackedScene" uid="uid://dmf0fx3mo63or" path="res://scenes/player.tscn" id="2_0ep6a"]
+[ext_resource type="PackedScene" uid="uid://chaf7rmpe7b7d" path="res://scenes/enemy.tscn" id="3_2ub51"]
+[ext_resource type="PackedScene" uid="uid://bwktjkb285pt1" path="res://fuzzy_graphics/graphic_dist.tscn" id="3_83m2g"]
+[ext_resource type="PackedScene" uid="uid://cde7yun5b8dui" path="res://scenes/gameOver.tscn" id="5_uhqyy"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_f2j2d"]
+vertices = PackedVector3Array(-8.7745, 0.51771, 0.8483, -3.5245, 0.51771, 0.8483, -3.5245, 0.51771, -0.1517, -8.7745, 0.51771, 0.8483, -3.5245, 0.51771, -0.1517, -2.7745, 0.51771, -0.9017, -1.5245, 0.51771, -7.9017, -8.7745, 0.51771, -7.9017, -2.7745, 0.51771, -0.9017, -1.5245, 0.51771, -0.9017, -1.5245, 0.51771, -7.9017, -1.5245, 0.51771, -7.9017, -1.5245, 0.51771, -0.9017, -0.0244999, 0.51771, -0.6517, 8.7255, 0.51771, -0.6517, 8.7255, 0.51771, -7.9017, -0.2745, 0.51771, 2.8483, -1.5245, 0.51771, 2.8483, -1.5245, 0.51771, 7.8483, 0.4755, 0.51771, 2.0983, -0.2745, 0.51771, 2.8483, -1.5245, 0.51771, 7.8483, 8.7255, 0.51771, 7.8483, 8.7255, 0.51771, -0.6517, 8.7255, 0.51771, -0.6517, -0.0244999, 0.51771, -0.6517, 0.4755, 0.51771, -0.1517, 8.7255, 0.51771, -0.6517, 0.4755, 0.51771, -0.1517, 0.4755, 0.51771, 2.0983, -1.5245, 0.51771, 7.8483, -1.5245, 0.51771, 2.8483, -2.7745, 0.51771, 2.8483, -3.5245, 0.51771, 2.0983, -3.5245, 0.51771, 0.8483, -8.7745, 0.51771, 0.8483, -1.5245, 0.51771, 7.8483, -2.7745, 0.51771, 2.8483, -3.5245, 0.51771, 2.0983, -8.7745, 0.51771, 0.8483, -8.7745, 0.51771, 7.8483)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 5), PackedInt32Array(5, 3, 7), PackedInt32Array(5, 7, 6), PackedInt32Array(10, 9, 8), PackedInt32Array(12, 11, 13), PackedInt32Array(13, 11, 14), PackedInt32Array(14, 11, 15), PackedInt32Array(18, 17, 16), PackedInt32Array(20, 19, 21), PackedInt32Array(21, 19, 22), PackedInt32Array(22, 19, 23), PackedInt32Array(26, 25, 24), PackedInt32Array(29, 28, 27), PackedInt32Array(32, 31, 30), PackedInt32Array(35, 34, 33), PackedInt32Array(37, 36, 38), PackedInt32Array(38, 36, 40), PackedInt32Array(38, 40, 39)]
+cell_height = 0.01
+
+[sub_resource type="BoxMesh" id="BoxMesh_jwh58"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fkrha"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_0q33v")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10.0672, 0)
+
+[node name="player" parent="." node_paths=PackedStringArray("lbl") instance=ExtResource("2_0ep6a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.72985)
+lbl = NodePath("../UI/PlayerInfo")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.95412, 0.299424, 0, -0.299424, 0.95412, 0, 1.9374, 3.03532)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PlayerInfo" type="Label" parent="UI"]
+offset_left = 17.0
+offset_top = 14.0
+offset_right = 347.0
+offset_bottom = 123.0
+theme_override_font_sizes/font_size = 20
+text = "Player Status: 
+Player Noise:"
+
+[node name="enemyInfo" type="Label" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -157.0
+offset_top = 84.0
+offset_right = -9.0
+offset_bottom = 115.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
+text = "Enemy  Status: "
+horizontal_alignment = 2
+
+[node name="enemyOpt" type="OptionButton" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -177.0
+offset_top = 38.0
+offset_right = -10.0
+offset_bottom = 69.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
+
+[node name="Label" type="Label" parent="UI/enemyOpt"]
+layout_mode = 0
+offset_top = -32.0
+offset_right = 105.0
+offset_bottom = -1.0
+theme_override_font_sizes/font_size = 20
+text = "CurEnemy:"
+
+[node name="graphic_dist" parent="UI" instance=ExtResource("3_83m2g")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 25.0
+offset_top = -184.0
+offset_right = 444.0
+offset_bottom = -18.0
+grow_horizontal = 1
+grow_vertical = 0
+
+[node name="graphic_res" parent="UI" instance=ExtResource("3_83m2g")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+offset_left = -419.0
+offset_top = -166.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 0
+graph_value = "Result"
+
+[node name="graphic_noise" parent="UI" instance=ExtResource("3_83m2g")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 25.0
+offset_top = -409.0
+offset_right = 444.0
+offset_bottom = -243.0
+grow_horizontal = 1
+grow_vertical = 0
+graph_value = "Noise"
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_f2j2d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D"]
+transform = Transform3D(19.549, 0, 0, 0, 1.00458, 0, 0, 0, 17.8034, 0, 0, 0)
+mesh = SubResource("BoxMesh_jwh58")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_fkrha")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="NavigationRegion3D"]
+transform = Transform3D(1.65616, 0, 0, 0, 1.00458, 0, 0, 0, 1.66703, -1.54902, 0.85658, 0.953745)
+mesh = SubResource("BoxMesh_jwh58")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/MeshInstance3D2/StaticBody3D"]
+shape = SubResource("BoxShape3D_fkrha")
+
+[node name="enemyGrp" type="Node3D" parent="."]
+
+[node name="enemy" parent="enemyGrp" node_paths=PackedStringArray("player") instance=ExtResource("3_2ub51")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.178723, 0.737638, -1.58522)
+minDistance = 5.0
+player = NodePath("../../player")
+
+[node name="enemy2" parent="enemyGrp" node_paths=PackedStringArray("player") instance=ExtResource("3_2ub51")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.37954, 0.737638, -1.58522)
+minDistance = 5.0
+player = NodePath("../../player")
+
+[node name="gameOverScreen" type="CanvasLayer" parent="."]
+
+[node name="gameOver" parent="gameOverScreen" instance=ExtResource("5_uhqyy")]
+visible = false
+
+[connection signal="item_selected" from="UI/enemyOpt" to="." method="_on_enemy_opt_item_selected"]

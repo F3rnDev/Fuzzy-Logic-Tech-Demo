@@ -1,0 +1,76 @@
+[gd_scene load_steps=2 format=3 uid="uid://jeue72hncy4"]
+
+[ext_resource type="Script" path="res://scripts/mainMenu.gd" id="1_iqgja"]
+
+[node name="mainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_iqgja")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -269.5
+offset_right = 269.5
+offset_bottom = 144.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 80
+text = "Lógica Fuzzy no Godot
+- Tech Demo -"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -218.5
+offset_top = -74.5
+offset_right = 218.5
+offset_bottom = 74.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Demo 01" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Demo 01"
+
+[node name="Demo 02" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Demo 02
+"
+
+[node name="Demo 03" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Demo 03
+"
+
+[node name="exit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = -52.0
+offset_right = 211.0
+offset_bottom = -9.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 25
+text = "Sair"
+
+[connection signal="button_down" from="VBoxContainer/Demo 01" to="." method="_on_demo_01_button_down"]
+[connection signal="button_down" from="VBoxContainer/Demo 02" to="." method="_on_demo_02_button_down"]
+[connection signal="button_down" from="VBoxContainer/Demo 03" to="." method="_on_demo_03_button_down"]
+[connection signal="button_down" from="exit" to="." method="_on_exit_button_down"]

@@ -1,0 +1,157 @@
+[gd_scene load_steps=11 format=3 uid="uid://cjwhxayinjppe"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_3o63l"]
+[ext_resource type="PackedScene" uid="uid://dmf0fx3mo63or" path="res://scenes/player.tscn" id="2_48nn5"]
+[ext_resource type="PackedScene" uid="uid://bwktjkb285pt1" path="res://fuzzy_graphics/graphic_dist.tscn" id="3_xay0m"]
+[ext_resource type="PackedScene" uid="uid://chaf7rmpe7b7d" path="res://scenes/enemy.tscn" id="4_8mk6q"]
+[ext_resource type="PackedScene" uid="uid://cde7yun5b8dui" path="res://scenes/gameOver.tscn" id="5_hfvlk"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_f2j2d"]
+vertices = PackedVector3Array(-9.28312, 0.528656, 0.882978, -1.28312, 0.528656, 0.882978, -1.28312, 0.528656, -0.367022, -1.28312, 0.528656, -0.367022, 0.216881, 0.528656, -0.617022, 0.216881, 0.528656, -8.36702, -9.28312, 0.528656, -8.36702, -9.28312, 0.528656, 0.882978, 0.216881, 0.528656, -8.36702, 0.216881, 0.528656, -0.617022, 1.46688, 0.528656, -0.617022, 1.46688, 0.528656, -0.617022, 1.71688, 0.528656, 0.882978, 9.21688, 0.528656, 0.882978, 9.21688, 0.528656, -8.36702, 0.216881, 0.528656, -8.36702, -0.283119, 1.37866, 0.382978, -0.283119, 1.37866, 1.38298, 0.716881, 1.37866, 1.38298, 0.716881, 1.37866, 0.382978, 0.216881, 0.528656, 8.38298, 0.216881, 0.528656, 2.38298, -1.28312, 0.528656, 2.13298, -9.28312, 0.528656, 0.882978, -9.28312, 0.528656, 8.38298, -1.28312, 0.528656, 2.13298, -1.28312, 0.528656, 0.882978, -9.28312, 0.528656, 0.882978, 1.46688, 0.528656, 2.38298, 0.216881, 0.528656, 2.38298, 0.216881, 0.528656, 8.38298, 9.21688, 0.528656, 0.882978, 1.71688, 0.528656, 0.882978, 1.46688, 0.528656, 2.38298, 9.21688, 0.528656, 8.38298, 9.21688, 0.528656, 0.882978, 1.46688, 0.528656, 2.38298, 0.216881, 0.528656, 8.38298)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 5), PackedInt32Array(5, 3, 6), PackedInt32Array(6, 3, 7), PackedInt32Array(10, 9, 8), PackedInt32Array(12, 11, 13), PackedInt32Array(13, 11, 14), PackedInt32Array(14, 11, 15), PackedInt32Array(19, 18, 16), PackedInt32Array(16, 18, 17), PackedInt32Array(21, 20, 22), PackedInt32Array(22, 20, 24), PackedInt32Array(22, 24, 23), PackedInt32Array(27, 26, 25), PackedInt32Array(30, 29, 28), PackedInt32Array(33, 32, 31), PackedInt32Array(37, 36, 34), PackedInt32Array(34, 36, 35)]
+cell_height = 0.01
+
+[sub_resource type="BoxMesh" id="BoxMesh_jwh58"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fkrha"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cqvjj"]
+albedo_color = Color(0.686275, 0.34902, 0.34902, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tti2r"]
+material = SubResource("StandardMaterial3D_cqvjj")
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_3o63l")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10.0672, 0)
+
+[node name="player" parent="." node_paths=PackedStringArray("lbl") instance=ExtResource("2_48nn5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.72985)
+lbl = NodePath("../UI/PlayerInfo")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.95412, 0.299424, 0, -0.299424, 0.95412, 0, 1.9374, 3.03532)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PlayerInfo" type="Label" parent="UI"]
+offset_left = 17.0
+offset_top = 14.0
+offset_right = 347.0
+offset_bottom = 123.0
+theme_override_font_sizes/font_size = 20
+text = "Player Status: 
+Player Noise:"
+
+[node name="enemyInfo" type="Label" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -157.0
+offset_top = 84.0
+offset_right = -9.0
+offset_bottom = 115.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
+text = "Enemy  Status: "
+horizontal_alignment = 2
+
+[node name="enemyOpt" type="OptionButton" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -177.0
+offset_top = 38.0
+offset_right = -10.0
+offset_bottom = 69.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
+
+[node name="Label" type="Label" parent="UI/enemyOpt"]
+layout_mode = 0
+offset_top = -32.0
+offset_right = 105.0
+offset_bottom = -1.0
+theme_override_font_sizes/font_size = 20
+text = "Inimigo:"
+
+[node name="graphic_dist" parent="UI" instance=ExtResource("3_xay0m")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 25.0
+offset_top = -184.0
+offset_right = 444.0
+offset_bottom = -18.0
+grow_horizontal = 1
+grow_vertical = 0
+
+[node name="graphic_res" parent="UI" instance=ExtResource("3_xay0m")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+offset_left = -444.0
+offset_top = -184.0
+offset_right = -25.0
+offset_bottom = -18.0
+grow_horizontal = 0
+grow_vertical = 0
+graph_value = "Result"
+
+[node name="graphic_noise" parent="UI" instance=ExtResource("3_xay0m")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 25.0
+offset_top = -409.0
+offset_right = 444.0
+offset_bottom = -243.0
+grow_horizontal = 1
+grow_vertical = 0
+graph_value = "Noise"
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_f2j2d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D"]
+transform = Transform3D(19.549, 0, 0, 0, 1.00458, 0, 0, 0, 17.8034, -0.00861931, 0.0109458, 0.0346785)
+mesh = SubResource("BoxMesh_jwh58")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_fkrha")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="NavigationRegion3D"]
+transform = Transform3D(1.65616, 0, 0, 0, 1.00458, 0, 0, 0, 1.66703, 0.146789, 0.85658, 0.953745)
+mesh = SubResource("BoxMesh_tti2r")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/MeshInstance3D2/StaticBody3D"]
+shape = SubResource("BoxShape3D_fkrha")
+
+[node name="enemyGrp" type="Node3D" parent="."]
+
+[node name="enemy" parent="enemyGrp" node_paths=PackedStringArray("cameraRef", "player") instance=ExtResource("4_8mk6q")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.94252, 0.737638, -1.58522)
+cameraRef = NodePath("../../Camera3D")
+minDistance = 5.0
+player = NodePath("../../player")
+
+[node name="enemy2" parent="enemyGrp" node_paths=PackedStringArray("cameraRef", "player") instance=ExtResource("4_8mk6q")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.13215, 0.737638, -1.58522)
+cameraRef = NodePath("../../Camera3D")
+minDistance = 5.0
+player = NodePath("../../player")
+
+[node name="gameOverScreen" type="CanvasLayer" parent="."]
+
+[node name="gameOver" parent="gameOverScreen" instance=ExtResource("5_hfvlk")]
+visible = false
+
+[connection signal="item_selected" from="UI/enemyOpt" to="." method="_on_enemy_opt_item_selected"]

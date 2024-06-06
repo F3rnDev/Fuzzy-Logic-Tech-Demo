@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://chaf7rmpe7b7d"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_icp24"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1nxt1"]
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cmf3c"]
+albedo_color = Color(0, 0.705882, 0.337255, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hytrp"]
+material = SubResource("StandardMaterial3D_cmf3c")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e86ap"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2toga"]
+material = SubResource("StandardMaterial3D_e86ap")
+
+[node name="enemy" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.178723, 1.04548, -1.31799)
+script = ExtResource("1_icp24")
+normalColor = Color(0, 0, 1, 0.419608)
+collColor = Color(1, 0, 0, 0.321569)
+rotateAmount = 6.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_1nxt1")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.378124, 0, 0, 0, -0.121726, 0, 0, 0, 0.44471, 0, -0.0946548, 0)
+mesh = SubResource("CapsuleMesh_hytrp")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.256341, 0, 0, 0, -0.121726, 0, 0, 0, 0.210737, 0, -0.0946548, -0.215979)
+mesh = SubResource("BoxMesh_2toga")
+skeleton = NodePath("../..")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="Raycast" type="Node3D" parent="."]
+
+[node name="viewPoint" type="RayCast3D" parent="Raycast"]
+transform = Transform3D(0.987228, 0, 0, 0, 0.987228, 0, 0, 0, 0.987228, 0, 0, 0)
+target_position = Vector3(0, 0, -5)
+
+[node name="viewPoint2" type="RayCast3D" parent="Raycast"]
+target_position = Vector3(2, 0, -10)
+
+[node name="viewPoint3" type="RayCast3D" parent="Raycast"]
+target_position = Vector3(-2, 0, -10)
+
+[node name="viewPoint4" type="RayCast3D" parent="Raycast"]
+target_position = Vector3(1, 0, -10)
+
+[node name="viewPoint5" type="RayCast3D" parent="Raycast"]
+target_position = Vector3(-1, 0, -10)
+
+[node name="raycastLines" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="draw" from="raycastLines" to="." method="_on_raycast_lines_draw"]
